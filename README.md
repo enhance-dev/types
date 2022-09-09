@@ -20,9 +20,6 @@ npm i -D @enhance/types
 
 Read more about [Enhance API Routes](https://enhance.dev/docs/learn/concepts/api-routes), their `request` object, and the expected `response` to understand each interface's properties.
 
-<table>
-<tr>
-<td valign="top">
 
 #### With JSDoc comments in `.mjs`
 
@@ -30,8 +27,6 @@ The simplest way to type an API middleware function is to use JSDoc's `@type` an
 
 You can also import the arugment (`EnhanceApiReq`) and response (`EnhanceApiRes`) types.
 
-</td>
-<td valign="top">
 
 ```js
 /**
@@ -54,12 +49,6 @@ export async function get(request) {
 }
 ```
 
-</td>
-</tr>
-</table>
-<table>
-<tr>
-<td valign="top">
 
 #### With `.ts`
 
@@ -67,8 +56,6 @@ Enhance API middlewares for named `get` and `post` functions are passed an `Enha
 
 These types can be used independenty, or by simply typing each handler with `EnhanceApiFn`.
 
-</td>
-<td valign="top">
 
 ```ts
 import type {
@@ -101,17 +88,11 @@ export const get: EnhanceApiFn = async function (
 };
 ```
 
-</td>
-</tr>
-</table>
 
 #### Custom Element
 
 [Single file components](https://enhance.dev/docs/learn/concepts/single-file-components) are the core of the Enhance developer experience.
 
-<table>
-<tr>
-<td valign="top">
 
 #### With JSDoc comments in `.mjs`
 
@@ -119,8 +100,6 @@ Server rendered custom element functions receive `EnhanceElemArgs` with 2 keys:
 1. `html: EnhanceHtmlFn` to render HTML strings
 2. `state: {attrs: object, store: object}` a record of the state used by Enhance
 
-</td>
-<td valign="top">
 
 ```js
 /**
@@ -146,12 +125,6 @@ export default function TodoItem({
 }
 ```
 
-</td>
-</tr>
-</table>
-<table>
-<tr>
-<td valign="top">
 
 #### With `.ts`
 
@@ -159,8 +132,6 @@ Several type definitions are available for SSR custom elements. The simplest is 
 
 You probably shouldn't make a copy of `html()` -- but its type, `EnhanceHtmlFn`, is available if needed.
 
-</td>
-<td valign="top">
 
 ```ts
 import type {
@@ -193,17 +164,11 @@ const TodoItem: EnhanceElemFn = function ({
 export default TodoItem;
 ```
 
-</td>
-</tr>
-</table>
 
 #### Head Function
 
 Customize your Enhance app by providing [a Head function](https://enhance.dev/docs/learn/starter-project/head).
 
-<table>
-<tr>
-<td valign="top">
 
 #### With JSDoc comments in `.mjs`
 
@@ -213,8 +178,6 @@ The function takes a `EnhanceApiReq` object for access to things like the reques
 
 Return a standard `EnhanceElemResult` (aka a `string` of HTML).
 
-</td>
-<td valign="top">
 
 ```js
 /**
@@ -237,19 +200,11 @@ export default function Head(request) {
 
 ```
 
-</td>
-</tr>
-</table>
-<table>
-<tr>
-<td valign="top">
 
 #### With `.ts`
 
 The `EnhanceHeadFn` is similar to an API handler but returns a string of HTML as `EnhanceElemResult`.
 
-</td>
-<td valign="top">
 
 ```ts
 import type {
@@ -277,7 +232,3 @@ const Head: EnhanceHeadFn = function (
 
 export default Head;
 ```
-
-</td>
-</tr>
-</table>
