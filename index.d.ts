@@ -1,4 +1,4 @@
-export type EnhanceApiRequest = {
+export type EnhanceApiReq = {
 	body: Record<string, any> | string;
 	headers: Record<string, string>;
 	params: Record<string, string>;
@@ -8,7 +8,7 @@ export type EnhanceApiRequest = {
 	path: string;
 };
 
-export type EnhanceApiResponse = {
+export type EnhanceApiRes = {
 	json?: Record<string, any>;
 	headers?: Record<string, string>;
 	session?: Record<string, any>;
@@ -17,31 +17,25 @@ export type EnhanceApiResponse = {
 	cacheControl?: string;
 };
 
-export type EnhanceElementResult = string; // ez
+export type EnhanceElemResult = string; // ez
 
-export type EnhanceHtmlFunction = (
+export type EnhanceHtmlFn = (
 	// "Why not TemplateStringsArray?"
 	// see https://github.com/microsoft/TypeScript/issues/33304
 	strings: ReadonlyArray<string>,
 	...values: [...string[]]
-) => EnhanceElementResult;
+) => EnhanceElemResult;
 
-export type EnhanceElementArgs = {
-	html: EnhanceHtmlFunction;
+export type EnhanceElemArgs = {
+	html: EnhanceHtmlFn;
 	state: {
 		attrs: Record<string, string>;
 		store: Record<any, any>;
 	};
 };
 
-export type EnhanceHeadFunction = (
-	request: EnhanceApiRequest,
-) => EnhanceElementResult;
+export type EnhanceApiFn = (request: EnhanceApiReq) => Promise<EnhanceApiRes>;
 
-export type EnhanceApiFunction = (
-	request: EnhanceApiRequest,
-) => Promise<EnhanceApiResponse>;
+export type EnhanceHeadFn = (request: EnhanceApiReq) => EnhanceElemResult;
 
-export type EnhanceElementFunction = (
-	args: EnhanceElementArgs,
-) => EnhanceElementResult;
+export type EnhanceElemFn = (args: EnhanceElemArgs) => EnhanceElemResult;

@@ -1,6 +1,12 @@
 {
   "name": "@enhance/types",
   "version": "0.0.0",
-  "types": "index.ts",
-  "typings": "index.ts"
+  "description": "TypeScript definitions for Enhance",
+  "homepage": "https://github.com/enhance-dev/types",
+  "repository": "@enhance-dev/types",
+  "license": "Apache-2.0",
+  "main": "",
+  "types": "index.d.ts",
+  "scripts": {},
+  "dependencies": {}
 }
