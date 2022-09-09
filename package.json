@@ -1,0 +1,6 @@
+{
+  "name": "@enhance/types",
+  "version": "0.0.0",
+  "types": "index.ts",
+  "typings": "index.ts"
+}
