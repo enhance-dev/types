@@ -1,5 +1,5 @@
 export type EnhanceApiReq = {
-	body: Record<string, any> | string;
+	body: Record<string, any>;
 	headers: Record<string, string>;
 	params: Record<string, string>;
 	query: Record<string, string>;
@@ -8,14 +8,27 @@ export type EnhanceApiReq = {
 	path: string;
 };
 
-export type EnhanceApiRes = {
-	json?: Record<string, any>;
+type EnhanceApiResBase = {
 	headers?: Record<string, string>;
 	session?: Record<string, any>;
 	location?: string;
 	statusCode?: number;
 	cacheControl?: string;
 };
+
+type EnhanceApiResJson = {
+	json: Record<string, any>;
+	body?: never;
+};
+
+type EnhanceApiResBody = {
+	body: string;
+	json?: never;
+};
+
+export type EnhanceApiRes =
+	& EnhanceApiResBase
+	& (EnhanceApiResJson | EnhanceApiResBody);
 
 export type EnhanceElemResult = string; // ez
 
@@ -34,8 +47,14 @@ export type EnhanceElemArgs = {
 	};
 };
 
-export type EnhanceApiFn = (request: EnhanceApiReq) => Promise<EnhanceApiRes>;
+export type EnhanceApiFn = (
+	request: EnhanceApiReq,
+) => Promise<EnhanceApiRes> | EnhanceApiRes;
 
-export type EnhanceHeadFn = (request: EnhanceApiReq) => EnhanceElemResult;
+export type EnhanceHeadFn = (
+	request: EnhanceApiReq,
+	status: number,
+	error?: Error,
+) => EnhanceElemResult;
 
 export type EnhanceElemFn = (args: EnhanceElemArgs) => EnhanceElemResult;

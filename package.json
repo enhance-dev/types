@@ -1,12 +1,19 @@
 {
   "name": "@enhance/types",
   "version": "0.1.0",
-  "description": "TypeScript definitions for Enhance",
+  "description": "Type definitions for Enhance.dev",
   "homepage": "https://github.com/enhance-dev/types",
   "repository": "@enhance-dev/types",
   "license": "Apache-2.0",
   "main": "",
   "types": "index.d.ts",
-  "scripts": {},
-  "dependencies": {}
+  "files": [
+    "index.d.ts"
+  ],
+  "scripts": {
+    "test": "npx tsd"
+  },
+  "devDependencies": {
+    "tsd": "^0.24.1"
+  }
 }

@@ -1,5 +1,3 @@
-> ⚠️  This library has not been published yet!
-
 # `@enhance/types`
 
 Type definitions for [Enhance](https://enhance.dev)
