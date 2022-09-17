@@ -1,6 +1,7 @@
 import { expectError, expectNever, expectType } from "tsd";
 import type {
 	EnhanceApiFn,
+	EnhanceApiFnChain,
 	EnhanceApiRes,
 	EnhanceElemFn,
 	EnhanceHeadFn,
@@ -45,6 +46,18 @@ export const post: EnhanceApiFn = async function (req) {
 		json: { req },
 	};
 };
+// chain
+export const patch: EnhanceApiFnChain = [
+	(req) => {
+		return { session: { foo: "bar", ...req.session } };
+	},
+	async (req) => {
+		return { json: { path: req.path } };
+	},
+	async () => {
+		return { status: 302, location: "/" };
+	},
+];
 
 // Custom Element
 export const TodoItem: EnhanceElemFn = function ({ html, state: { attrs } }) {

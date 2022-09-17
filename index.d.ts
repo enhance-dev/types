@@ -17,12 +17,12 @@ type EnhanceApiResBase = {
 };
 
 type EnhanceApiResJson = {
-	json: Record<string, any>;
+	json?: Record<string, any>;
 	body?: never;
 };
 
 type EnhanceApiResBody = {
-	body: string;
+	body?: string;
 	json?: never;
 };
 
@@ -50,6 +50,8 @@ export type EnhanceElemArgs = {
 export type EnhanceApiFn = (
 	request: EnhanceApiReq,
 ) => Promise<EnhanceApiRes> | EnhanceApiRes;
+
+export type EnhanceApiFnChain = EnhanceApiFn[];
 
 export type EnhanceHeadFn = (
 	request: EnhanceApiReq,
