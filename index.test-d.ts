@@ -1,4 +1,4 @@
-import { expectError, expectNever, expectType } from "tsd";
+import { expectError } from "tsd";
 import type {
 	EnhanceApiFn,
 	EnhanceApiFnChain,
@@ -36,7 +36,8 @@ export const get: EnhanceApiFn = function (request) {
 
 	return {
 		session: {},
-		statusCode: 200,
+		status: 200,
+		cacheControl: "public, max-age=14400",
 		json: { filter, todos },
 	};
 };
@@ -60,10 +61,16 @@ export const patch: EnhanceApiFnChain = [
 ];
 
 // Custom Element
-export const TodoItem: EnhanceElemFn = function ({ html, state: { attrs } }) {
+export const TodoItem: EnhanceElemFn = function ({
+	html,
+	state: { attrs, store },
+}) {
 	const todoId = attrs["todo-id"];
 	const completed = typeof attrs.completed === "string";
-	const _myHtml: EnhanceHtmlFn = html;
+	const myHtml: EnhanceHtmlFn = html;
+	typeof myHtml === "function";
+
+	store.myCustomData;
 
 	return html`
     <div class="flex gap-2 mb-1">
@@ -80,12 +87,8 @@ export const TodoItem: EnhanceElemFn = function ({ html, state: { attrs } }) {
 
 // Head Function
 export const Head: EnhanceHeadFn = function (request, status, error) {
-	if (status > 399) {
-		return "Uhoh";
-	}
-
-	if (error) {
-		return error.message;
+	if (status > 399 && error) {
+		return error;
 	}
 
 	const { path } = request;

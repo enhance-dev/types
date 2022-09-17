@@ -1,28 +1,48 @@
 export type EnhanceApiReq = {
+	/** The parsed JSON payload */
 	body: Record<string, any>;
+	/** HTTP request headers as an object */
 	headers: Record<string, string>;
+	/** URL params (e.g. ‘cat’ in /app/api/cats/$cat.mjs) */
 	params: Record<string, string>;
+	/** HTTP request querystring parameters as an object */
 	query: Record<string, string>;
+	/** HTTP request cookie as an object */
 	session: Record<string, any>;
+	/** HTTP request method: GET, POST, PATCH, PUT, or DELETE */
 	method: string;
+	/** Root-relative path of the HTTP request URL */
 	path: string;
 };
 
 type EnhanceApiResBase = {
+	/** HTTP response headers as an object */
 	headers?: Record<string, string>;
+	/** Writes passed object to the session */
 	session?: Record<string, any>;
+	/* Redirect path, when statusCode is 301 or 302 */
 	location?: string;
+	/** HTTP response status. Defaults to 200. */
 	statusCode?: number;
+	/** Shortcut for statusCode */
+	status?: number;
+	/** Shortcut for statusCode */
+	code?: number;
+	/** Shortcut to set the cache-control header. ie. no-cache */
 	cacheControl?: string;
 };
 
 type EnhanceApiResJson = {
+	/** JSON response, or initial state for a corresponding page */
 	json?: Record<string, any>;
+	/** body is incompatible when json is specified */
 	body?: never;
 };
 
 type EnhanceApiResBody = {
+	/** Return value of content-type set in headers. ie. text/xml */
 	body?: string;
+	/** json is incompatible when body is specified */
 	json?: never;
 };
 
@@ -40,23 +60,31 @@ export type EnhanceHtmlFn = (
 ) => EnhanceElemResult;
 
 export type EnhanceElemArgs = {
+	/** Enhance's primary HTML rendering function */
 	html: EnhanceHtmlFn;
+	/** Enhance's state object with information about markup and the data store */
 	state: {
+		/** HTML element attributes as an object */
 		attrs: Record<string, string>;
+		/** Initial state data passed to all Enhance elements */
 		store: Record<any, any>;
 	};
 };
 
 export type EnhanceApiFn = (
+	/** The parsed HTTP request */
 	request: EnhanceApiReq,
 ) => Promise<EnhanceApiRes> | EnhanceApiRes;
 
 export type EnhanceApiFnChain = EnhanceApiFn[];
 
 export type EnhanceHeadFn = (
+	/** The parsed HTTP request */
 	request: EnhanceApiReq,
-	status: number,
-	error?: Error,
+	/** The Resolved HTTP status code */
+	status: 200 | 404 | 500,
+	/** Error message, present when status is 404 or 500 */
+	error?: string,
 ) => EnhanceElemResult;
 
 export type EnhanceElemFn = (args: EnhanceElemArgs) => EnhanceElemResult;
