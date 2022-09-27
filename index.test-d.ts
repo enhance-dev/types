@@ -73,26 +73,24 @@ export const TodoItem: EnhanceElemFn = function ({
 	store.myCustomData;
 
 	return html`
-    <div class="flex gap-2 mb-1">
-      <input
-        todo-id="${todoId}"
-        type="checkbox"
-        name="completed"
-        ${completed ? "checked" : ""}
-      />
-      <slot></slot>
-    </div>
+		<div class="flex gap-2 mb-1">
+			<input todo-id="${todoId}" type="checkbox" name="completed" ${
+		completed ? "checked" : ""
+	} />
+			<slot></slot>
+		</div>
   `;
 };
 
 // Head Function
-export const Head: EnhanceHeadFn = function (request, status, error) {
+export const Head: EnhanceHeadFn = function (state) {
+	const { req, status, error, store } = state;
 	if (status > 399 && error) {
 		return error;
 	}
 
-	const { path } = request;
-	const title = `Todos — ${path}`;
+	const { path } = req;
+	const title = `Todos — ${path} - ${store.docTitle}`;
 
 	return `
 <!DOCTYPE html>

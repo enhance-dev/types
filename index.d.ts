@@ -59,7 +59,7 @@ export type EnhanceHtmlFn = (
 	...values: [...string[]]
 ) => EnhanceElemResult;
 
-export type EnhanceElemArgs = {
+export type EnhanceElemArg = {
 	/** Enhance's primary HTML rendering function */
 	html: EnhanceHtmlFn;
 	/** Enhance's state object with information about markup and the data store */
@@ -78,13 +78,17 @@ export type EnhanceApiFn = (
 
 export type EnhanceApiFnChain = EnhanceApiFn[];
 
-export type EnhanceHeadFn = (
+export type EnhanceHeadFnArg = {
 	/** The parsed HTTP request */
-	request: EnhanceApiReq,
+	req: EnhanceApiReq;
 	/** The Resolved HTTP status code */
-	status: 200 | 404 | 500,
+	status: 200 | 404 | 500;
 	/** Error message, present when status is 404 or 500 */
-	error?: string,
-) => EnhanceElemResult;
+	error?: string;
+	/** Initial state data passed to all Enhance elements */
+	store: Record<any, any>;
+};
 
-export type EnhanceElemFn = (args: EnhanceElemArgs) => EnhanceElemResult;
+export type EnhanceHeadFn = (arg0: EnhanceHeadFnArg) => EnhanceElemResult;
+
+export type EnhanceElemFn = (arg0: EnhanceElemArg) => EnhanceElemResult;
