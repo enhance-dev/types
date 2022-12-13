@@ -24,12 +24,24 @@ type EnhanceApiResBase = {
 	location?: string;
 	/** HTTP response status. Defaults to 200. */
 	statusCode?: number;
+
+	// shortcuts
 	/** Shortcut for statusCode */
 	status?: number;
 	/** Shortcut for statusCode */
 	code?: number;
 	/** Shortcut to set the cache-control header. ie. no-cache */
 	cacheControl?: string;
+	/** Shortcut to send text/plain */
+	text?: string;
+	/** Shortcut to send text/xml */
+	xml?: string;
+	/** Shortcut to send text/javascript */
+	js?: string;
+	/** Shortcut to send text/css */
+	css?: string;
+	/** Shortcut to send text/html without Enhance rendering. Likely not wanted! */
+	html?: string;
 };
 
 type EnhanceApiResJson = {
@@ -67,7 +79,7 @@ export type EnhanceElemArg = {
 		/** HTML element attributes as an object */
 		attrs: Record<string, string>;
 		/** Initial state data passed to all Enhance elements */
-		store: Record<any, any>;
+		store: Record<string, any>;
 	};
 };
 
@@ -86,7 +98,7 @@ export type EnhanceHeadFnArg = {
 	/** Error message, present when status is 404 or 500 */
 	error?: string;
 	/** Initial state data passed to all Enhance elements */
-	store: Record<any, any>;
+	store: Record<string, any>;
 };
 
 export type EnhanceHeadFn = (arg0: EnhanceHeadFnArg) => EnhanceElemResult;

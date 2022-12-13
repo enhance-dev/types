@@ -29,7 +29,7 @@ export const get: EnhanceApiFn = function (request) {
 	let invalidResponse: EnhanceApiRes = { json: { todos } };
 	expectError(
 		(invalidResponse = {
-			json: {},
+			json: { foo: 'bar' },
 			body: "",
 		}),
 	);
@@ -74,9 +74,8 @@ export const TodoItem: EnhanceElemFn = function ({
 
 	return html`
 		<div class="flex gap-2 mb-1">
-			<input todo-id="${todoId}" type="checkbox" name="completed" ${
-		completed ? "checked" : ""
-	} />
+			<input todo-id="${todoId}" type="checkbox" name="completed" ${completed ? "checked" : ""
+		} />
 			<slot></slot>
 		</div>
   `;
