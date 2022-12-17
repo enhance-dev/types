@@ -94,7 +94,7 @@ export const get: EnhanceApiFn = async function (
 
 #### With JSDoc comments in `.mjs`
 
-Server rendered custom element functions receive `EnhanceElemArgs` with 2 keys:
+Server rendered custom element functions receive `EnhanceElemArg` with 2 keys:
 1. `html: EnhanceHtmlFn` to render HTML strings
 2. `state: {attrs: object, store: object}` a record of the state used by Enhance
 
@@ -133,7 +133,7 @@ You probably shouldn't make a copy of `html()` -- but its type, `EnhanceHtmlFn`,
 
 ```ts
 import type {
-  EnhanceElemArgs,
+  EnhanceElemArg,
   EnhanceElemFn,
   EnhanceHtmlFn,
   EnhanceElemResult,
@@ -142,7 +142,7 @@ import type {
 const TodoItem: EnhanceElemFn = function ({
   html,
   state: { attrs },
-}: EnhanceElemArgs): EnhanceElemResult {
+}: EnhanceElemArg): EnhanceElemResult {
   const todoId = attrs["todo-id"];
   const completed = typeof attrs.completed === "string";
   const myHtml: EnhanceHtmlFn = html;
