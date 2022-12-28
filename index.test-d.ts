@@ -80,6 +80,33 @@ export const TodoItem: EnhanceElemFn = function ({
 		</div>
   `;
 };
+// Custom Element with attrs and store types
+export const TodoItemWithStore: EnhanceElemFn<{ "todo-id": string }, { "some-value"}> = ({
+	html,
+	state: { attrs, store },
+}) => {
+	const todoId = attrs["todo-id"];
+
+	let invalidParam;
+	expectError(
+		(invalidParam = attrs.invalid)
+	)
+	
+	const someValue = store["some-value"];
+
+	expectError(
+		(store.myCustomData)
+	)
+
+	return html`
+		<div class="flex gap-2 mb-1">
+			<input todo-id="${todoId}" type="checkbox"
+		} />
+			<slot></slot>
+		</div>
+  `;
+};
+
 
 // Head Function
 export const Head: EnhanceHeadFn = function (state) {
