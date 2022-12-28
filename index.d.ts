@@ -1,3 +1,9 @@
+/** Default type of element attributes */
+export type EnhanceAttrs = unknown;
+
+/** Defaul type of Enhance store */
+export type EnhanceStore = unknown;
+
 export type EnhanceApiReq = {
 	/** The parsed JSON payload */
 	body: Record<string, any>;
@@ -44,9 +50,9 @@ type EnhanceApiResBase = {
 	html?: string;
 };
 
-type EnhanceApiResJson = {
+type EnhanceApiResJson<Store = EnhanceStore> = {
 	/** JSON response, or initial state for a corresponding page */
-	json?: Record<string, any>;
+	json?: Store;
 	/** body is incompatible when json is specified */
 	body?: never;
 };
@@ -58,9 +64,9 @@ type EnhanceApiResBody = {
 	json?: never;
 };
 
-export type EnhanceApiRes =
+export type EnhanceApiRes<Store = EnhanceStore> =
 	& EnhanceApiResBase
-	& (EnhanceApiResJson | EnhanceApiResBody);
+	& (EnhanceApiResJson<Store> | EnhanceApiResBody);
 
 export type EnhanceElemResult = string; // ez
 
@@ -71,26 +77,26 @@ export type EnhanceHtmlFn = (
 	...values: [...string[]]
 ) => EnhanceElemResult;
 
-export type EnhanceElemArg = {
+export type EnhanceElemArg<Attrs = EnhanceAttrs, Store = EnhanceStore> = {
 	/** Enhance's primary HTML rendering function */
 	html: EnhanceHtmlFn;
 	/** Enhance's state object with information about markup and the data store */
 	state: {
 		/** HTML element attributes as an object */
-		attrs: Record<string, string>;
+		attrs: Attrs;
 		/** Initial state data passed to all Enhance elements */
-		store: Record<string, any>;
+		store: Store;
 	};
 };
 
-export type EnhanceApiFn = (
+export type EnhanceApiFn<Store = EnhanceStore> = (
 	/** The parsed HTTP request */
 	request: EnhanceApiReq,
-) => Promise<EnhanceApiRes> | EnhanceApiRes;
+) => Promise<EnhanceApiRes<Store> | EnhanceApiRes<Store>>;
 
-export type EnhanceApiFnChain = EnhanceApiFn[];
+export type EnhanceApiFnChain = EnhanceApiFn<Record<string, any>>[];
 
-export type EnhanceHeadFnArg = {
+export type EnhanceHeadFnArg<Store = EnhanceStore> = {
 	/** The parsed HTTP request */
 	req: EnhanceApiReq;
 	/** The Resolved HTTP status code */
@@ -98,9 +104,9 @@ export type EnhanceHeadFnArg = {
 	/** Error message, present when status is 404 or 500 */
 	error?: string;
 	/** Initial state data passed to all Enhance elements */
-	store: Record<string, any>;
+	store: Store;
 };
 
-export type EnhanceHeadFn = (arg0: EnhanceHeadFnArg) => EnhanceElemResult;
+export type EnhanceHeadFn<Store = EnhanceStore> = (arg0: EnhanceHeadFnArg<Store>) => EnhanceElemResult;
 
-export type EnhanceElemFn = (arg0: EnhanceElemArg) => EnhanceElemResult;
+export type EnhanceElemFn<Attrs = EnhanceAttrs, Store = EnhanceStore> = (arg0: EnhanceElemArg<Attrs, Store>) => EnhanceElemResult;
