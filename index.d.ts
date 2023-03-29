@@ -80,6 +80,10 @@ export type EnhanceElemArg = {
 		attrs: Record<string, string>;
 		/** Initial state data passed to all Enhance elements */
 		store: Record<string, any>;
+		/** Unique ID for this instance of the element */
+		instanceID: string;
+		/** Context data passed to this Enhance element */
+		context: Record<string, any>;
 	};
 };
 

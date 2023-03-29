@@ -63,19 +63,26 @@ export const patch: EnhanceApiFnChain = [
 // Custom Element
 export const TodoItem: EnhanceElemFn = function ({
 	html,
-	state: { attrs, store },
+	state: { attrs, store, instanceID, context },
 }) {
 	const todoId = attrs["todo-id"];
 	const completed = typeof attrs.completed === "string";
 	const myHtml: EnhanceHtmlFn = html;
 	typeof myHtml === "function";
 
+	context.todoId = todoId;
+
 	store.myCustomData;
 
 	return html`
 		<div class="flex gap-2 mb-1">
-			<input todo-id="${todoId}" type="checkbox" name="completed" ${completed ? "checked" : ""
-		} />
+			<input
+				id="todo-${instanceID}"
+				todo-id="${todoId}"
+				type="checkbox"
+				name="completed"
+				${completed ? "checked" : ""}
+			/>
 			<slot></slot>
 		</div>
   `;
