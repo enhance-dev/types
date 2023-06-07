@@ -13,6 +13,8 @@ export type EnhanceApiReq = {
 	method: string;
 	/** Root-relative path of the HTTP request URL */
 	path: string;
+	/** Application state from previous API middleware */
+	state?: Record<string, any>;
 };
 
 type EnhanceApiResBase = {
