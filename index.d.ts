@@ -1,6 +1,6 @@
-export type EnhanceApiReq = {
+type EnhanceApiReqBase = {
 	/** The parsed JSON payload */
-	body: Record<string, any>;
+	body: Record<string, unknown>;
 	/** HTTP request headers as an object */
 	headers: Record<string, string>;
 	/** URL params (e.g. ‘cat’ in /app/api/cats/$cat.mjs) */
@@ -8,20 +8,22 @@ export type EnhanceApiReq = {
 	/** HTTP request querystring parameters as an object */
 	query: Record<string, string>;
 	/** HTTP request cookie as an object */
-	session: Record<string, any>;
+	session: Record<string, unknown>;
 	/** HTTP request method: GET, POST, PATCH, PUT, or DELETE */
 	method: string;
 	/** Root-relative path of the HTTP request URL */
 	path: string;
-	/** Application state from previous API middleware */
-	state?: Record<string, any>;
 };
+
+export type EnhanceApiReq =
+	& EnhanceApiReqBase
+	& (Record<string, unknown>)
 
 type EnhanceApiResBase = {
 	/** HTTP response headers as an object */
 	headers?: Record<string, string>;
 	/** Writes passed object to the session */
-	session?: Record<string, any>;
+	session?: Record<string, unknown>;
 	/* Redirect path, when statusCode is 301 or 302 */
 	location?: string;
 	/** HTTP response status. Defaults to 200. */
@@ -48,7 +50,7 @@ type EnhanceApiResBase = {
 
 type EnhanceApiResJson = {
 	/** JSON response, or initial state for a corresponding page */
-	json?: Record<string, any>;
+	json?: Record<string, unknown>;
 	/** body is incompatible when json is specified */
 	body?: never;
 };
@@ -81,11 +83,11 @@ export type EnhanceElemArg = {
 		/** HTML element attributes as an object */
 		attrs: Record<string, string>;
 		/** Initial state data passed to all Enhance elements */
-		store: Record<string, any>;
+		store: Record<string, unknown>;
 		/** Unique ID for this instance of the element */
 		instanceID: string;
 		/** Context data passed to this Enhance element */
-		context: Record<string, any>;
+		context: Record<string, unknown>;
 	};
 };
 
@@ -104,7 +106,7 @@ export type EnhanceHeadFnArg = {
 	/** Error message, present when status is 404 or 500 */
 	error?: string;
 	/** Initial state data passed to all Enhance elements */
-	store: Record<string, any>;
+	store: Record<string, unknown>;
 };
 
 export type EnhanceHeadFn = (arg0: EnhanceHeadFnArg) => EnhanceElemResult;
