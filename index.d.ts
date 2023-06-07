@@ -1,6 +1,6 @@
 type EnhanceApiReqBase = {
 	/** The parsed JSON payload */
-	body: Record<string, unknown>;
+	body: Record<string, any>;
 	/** HTTP request headers as an object */
 	headers: Record<string, string>;
 	/** URL params (e.g. ‘cat’ in /app/api/cats/$cat.mjs) */
@@ -8,7 +8,7 @@ type EnhanceApiReqBase = {
 	/** HTTP request querystring parameters as an object */
 	query: Record<string, string>;
 	/** HTTP request cookie as an object */
-	session: Record<string, unknown>;
+	session: Record<string, any>;
 	/** HTTP request method: GET, POST, PATCH, PUT, or DELETE */
 	method: string;
 	/** Root-relative path of the HTTP request URL */
@@ -17,13 +17,13 @@ type EnhanceApiReqBase = {
 
 export type EnhanceApiReq =
 	& EnhanceApiReqBase
-	& (Record<string, unknown>)
+	& (Record<string, any>)
 
 type EnhanceApiResBase = {
 	/** HTTP response headers as an object */
 	headers?: Record<string, string>;
 	/** Writes passed object to the session */
-	session?: Record<string, unknown>;
+	session?: Record<string, any>;
 	/* Redirect path, when statusCode is 301 or 302 */
 	location?: string;
 	/** HTTP response status. Defaults to 200. */
@@ -50,7 +50,7 @@ type EnhanceApiResBase = {
 
 type EnhanceApiResJson = {
 	/** JSON response, or initial state for a corresponding page */
-	json?: Record<string, unknown>;
+	json?: Record<string, any>;
 	/** body is incompatible when json is specified */
 	body?: never;
 };
@@ -83,11 +83,11 @@ export type EnhanceElemArg = {
 		/** HTML element attributes as an object */
 		attrs: Record<string, string>;
 		/** Initial state data passed to all Enhance elements */
-		store: Record<string, unknown>;
+		store: Record<string, any>;
 		/** Unique ID for this instance of the element */
 		instanceID: string;
 		/** Context data passed to this Enhance element */
-		context: Record<string, unknown>;
+		context: Record<string, any>;
 	};
 };
 
@@ -106,7 +106,7 @@ export type EnhanceHeadFnArg = {
 	/** Error message, present when status is 404 or 500 */
 	error?: string;
 	/** Initial state data passed to all Enhance elements */
-	store: Record<string, unknown>;
+	store: Record<string, any>;
 };
 
 export type EnhanceHeadFn = (arg0: EnhanceHeadFnArg) => EnhanceElemResult;
