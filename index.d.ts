@@ -1,4 +1,4 @@
-export type EnhanceApiReq = {
+type EnhanceApiReqBase = {
 	/** The parsed JSON payload */
 	body: Record<string, any>;
 	/** HTTP request headers as an object */
@@ -14,6 +14,10 @@ export type EnhanceApiReq = {
 	/** Root-relative path of the HTTP request URL */
 	path: string;
 };
+
+export type EnhanceApiReq =
+	& EnhanceApiReqBase
+	& (Record<string, any>)
 
 type EnhanceApiResBase = {
 	/** HTTP response headers as an object */

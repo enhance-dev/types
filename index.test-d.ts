@@ -18,7 +18,7 @@ type Todo = {
 export const get: EnhanceApiFn = function (request) {
 	console.log(`Handling ${request.path}...`);
 
-	const filter: string = request.body.filter;
+	const filter: string = request.body.filter as string;
 
 	const todos: Todo[] = [
 		{ title: "todo 1", completed: false },
