@@ -110,6 +110,8 @@ export type EnhanceHeadFn = (payload: EnhanceHeadFnArg) => EnhanceElemResult;
 
 export type EnhanceElemFn = (payload: EnhanceElemArg) => EnhanceElemResult;
 
+export type EnhancePageFn = EnhanceElemFn;
+
 export type EnhancePreflightFn = (
   payload: EnhanceApiReq,
 ) => Promise<Record<string, any>> | Record<string, any>;
